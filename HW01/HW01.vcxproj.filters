@@ -16,9 +16,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="script.sh" />
-    <None Include="script2.sh" />
-    <None Include="script3.sh" />
-    <None Include="script4.sh" />
-    <None Include="script5.sh" />
+    <None Include="assignment.pdf" />
+    <None Include="assignment.xps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="man.txt" />
   </ItemGroup>
 </Project>
