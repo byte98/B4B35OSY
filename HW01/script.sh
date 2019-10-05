@@ -36,40 +36,35 @@ fi
 while read -r line; do
 	if [[ $line = $PREFIX* ]]; then  # check if input starts with PATH
 		input=${line#"$PREFIX"}
-		if [[ -e $input ]]; then
-			if [[ -f $input ]]; then # input is file
-				lines=$(< "$input" wc -l)
-				first_line=$(head -n 1 "$input")
-				echo "FILE '$input' $lines '$first_line'"
-				if [ "$ZIP_FLAG" = true ]; then
-					ZIP_COMMAND="${ZIP_COMMAND}$input "
-				fi
-			elif [[ -L $input ]] || [[ -h $input ]]; then # input is symlink
-				target=$(readlink "$input")
-				echo "LINK '$input' '$target'"
-			elif [[ -d $input ]]; then # input is directory
-				echo "DIR '$input'"			
-			else # input is nothing from above
-				>&2 echo "ERROR '$input'"
-				ERROR_FLAG=true
+		if [[ -L $input ]] || [[ -h $input ]]; then # input is symlink
+			target=$(readlink "$input")
+			echo "LINK '$input' '$target'"
+		elif [[ -f $input ]]; then # input is file
+			lines=$(< "$input" wc -l)
+			first_line=$(head -n 1 "$input")
+			echo "FILE '$input' $lines '$first_line'"
+			if [ "$ZIP_FLAG" = true ]; then
+				ZIP_COMMAND="${ZIP_COMMAND}'$input' "
 			fi
-		else # input doesn't exists
+		elif [[ -d $input ]]; then # input is directory
+			echo "DIR '$input'"			
+		else # input is nothing from above
 			>&2 echo "ERROR '$input'"
 			ERROR_FLAG=true
 		fi
 	fi
 done
 
-if [ "$ZIP_FLAG" = true ]; then
+if [ "$ZIP_FLAG" = true ]; then # make zip?
 	eval $ZIP_COMMAND
 fi
 
 EXIT_CODE=0
-if [ "$ERROR_FLAG" = true ]; then
+if [ "$ERROR_FLAG" = true ]; then # finished program correctly?
 	EXIT_CODE=1
 fi
 
-if [ "$CRITICAL_FLAG" = true ]; then
+if [ "$CRITICAL_FLAG" = true ]; then # is there any critical error?
 	EXIT_CODE=2
 
 fi
