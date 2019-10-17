@@ -34,13 +34,8 @@ if [ "$H_FLAG" = true ]; then # show help?
 	exit 0
 else
 	for file in $FILES; do
-		# sed -i s/#include </#include <$INCLUDE_FLAG/ $file"
-		# sed -i "s/#include \"/#include \"$INCLUDE_FLAG/ $file"
-		cmd="sed -i 's/#include </#include <${INCLUDE_FLAG}/gp' $file"
-		eval $cmd
-		cmd="sed -i 's/#include \"/#include \"${INCLUDE_FLAG}/gp' $file"
-		eval $cmd
-		echo 
+		sed -i "s~#include <~#include <$INCLUDE_FLAG~" $file
+		sed -i "s~#include \"~#include \"$INCLUDE_FLAG~" $file
 	done
 
 fi

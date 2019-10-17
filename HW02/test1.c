@@ -1,9 +1,6 @@
-#include <libstdio.h>
-#include <libstdio.h>
-#include "libprogram1_u.h"
-#include "libprogram1_u.h"
-#include "libprogram1_u.c"
-#include "libprogram1_u.c"
+#include <lib/stdio.h>
+#include "lib/program1_u.h"
+#include "lib/program1_u.c"
 
 void print_hello()
 {
