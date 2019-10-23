@@ -1,6 +1,0 @@
-první sed za podtržítkem nahradí písmeno velkým
-druhý sed smaže podtržítka
-závorky???
-vezmu si název, změnim název a replacnu
-
-hledat řetězec #include < alfanum

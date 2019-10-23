@@ -35,10 +35,11 @@ IFS_BACKUP=$IFS
 H_FLAG=false
 INCLUDE_FLAG=false
 R_FLAG=false
+F_FLAG=false
 
 OPTIND=1
 
-while getopts ":hi:r" o; do # parse script arguments
+while getopts ":hi:rf:" o; do # parse script arguments
 	case "${o}" in
 		h)
 			H_FLAG=true
@@ -48,6 +49,9 @@ while getopts ":hi:r" o; do # parse script arguments
 			;;
 		r)
 			R_FLAG=true
+			;;
+		f)
+			F_FLAG=${OPTARG}
 			;;
 		*)
 			exit 1
@@ -61,14 +65,14 @@ FILES=$@
 
 function changeFiles()
 {
-
+	set -x
 	if [ "$H_FLAG" = true ]; then # show help?
 		echo -e $(cat man.txt)
 		exit 0
 	else
 		for file in $FILES; do 
-			#>&2 echo "======================="
-			#>&2 echo $(cat $file)
+			>&2 echo "======================="
+			>&2 echo $(cat $file)
 			# add prefix to includes
 			if [ "$INCLUDE_FLAG" != false ]; then
 				includes=($(grep -o -E "#\s*include\s*[<\"]+[a-zA-Z0-9_/ \\]+(\.h)[>\"]+" $file))
@@ -128,6 +132,15 @@ function changeFiles()
 					if [[ $target == *"__"* ]]; then
 						new_name=$target
 					fi
+					if [[ "$F_FLAG" != false ]]; then
+						if [[ $target =~ $F_FLAG ]]; then
+							new_name=$new_name
+						else
+							new_name=$target
+						fi
+					fi
+					#echo "--------"
+					#echo "$target >> $new_name"
 					sed -i "s/$target/$new_name/" $file
 				done
 			fi
@@ -230,4 +243,4 @@ fi
 
 IFS=$IFS_BACKUP
 
-
+exit 0

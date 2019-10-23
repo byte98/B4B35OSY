@@ -10,7 +10,9 @@
 \033[0m\033[1B
 \033[2C Script has next paramateres chaning its behaviour:
 \033[1B
-\033[2C \033[0;93m-h\033[0m, \033[0;93m-i\033[0m \033[0;36mprefix\033[0m and \033[0;93m-r\033[0m.
+\033[2C \033[0;93m-h\033[0m, \033[0;93m-i\033[0m \033[0;36mprefix\033[0m , \033[0;93m-r\033[0m and \033[0;93m-f\033[0m \033[0;36mregex\033[0m.
+\033[1B
+\033[2C At the end, there can be list of \033[0;93mfiles\033[0m spearated by space
 \033[1B
 \033[3C\033[0;93m-h\033[0m: Displays this help page
 \033[1B
@@ -18,26 +20,28 @@
 \033[1B
 \033[2C\033[2C\033[2CExample: \033[0;93m-i \033[0;36msome\033[0m changes #include "lib.h" to #include "\033[0;36msome\033[0mlib.h"
 \033[1B
+\033[3C\033[0;93m-r\033[0m: Changes naming convence
+\033[1B
+\033[2C\033[2C\033[2CExample: \033[0;35m some_function(\033[0m...\033[0;35m)\033[0m will be changed to \033[0;35m someFunction(\033[0m...\033[0;35m)\033[0m
+\033[1B
+\033[3C\033[0;93m-f\033[0m \033[0;36mregex\033[0m: Changes naming convece only in function names matching \033[0;36mregex\033[0m
+\033[1B
 \033[0m\033[2B
 \033[1;97m\033[1CUSAGE
 \033[1B
-\033[0m\033[2CScript expects entries in format:
+\033[0m\033[2CScript has basically two possible ways of run:
 \033[1B
-\033[3C\033[0;93mPATH \033[0;36mpath\033[0m
+\033[3C - with entered \033[0;93mfiles\033[0m: Makes changes in every entered file
 \033[1B
-\033[2CWhere \033[0;36mpath\033[0m is relative or absolute path to some existing item in file system.
+\033[3C - without entered \033[0;93mfiles\033[0m: Reads code from standart input and then prints changed code
 \033[0m\033[2B
 \033[1;97m\033[1COUTPUT\033[0m
 \033[1B
-\033[2CScript shows some information about entry depending on its type:
+\033[2CDepending on way which was script started, there are two kind of outputs of script:
 \033[1B
-\033[2C - for \033[4mFILE\033[0m shows path to file, count of lines and prints first line of file
+\033[3C - no output: when script was started with entered \033[0;93mfiles\033[0m
 \033[1B
-\033[2C - for \033[4mDIRECTORY\033[0m shows path to directory
-\033[1B
-\033[2C - for \033[4mLINK\033[0m shows path to link and target of link
-\033[1B
-\033[2COtherwise prints ERROR to stderr.
+\033[3C - changed code: when script was started without entered \033[0;93mfiles\033[0m
 \033[0m\033[2B
 \033[1;97m\033[1CAUTHOR\033[0m
 \033[1B
