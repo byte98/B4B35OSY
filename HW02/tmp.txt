@@ -1,0 +1,65 @@
+if [ "$H_FLAG" = true ]; then # show help?
+		echo -e $(cat man.txt)
+		exit 0
+	else
+		input=$(cat)
+		>&2 echo "=======================" &2 echo "${input}"
+		# add prefix to includes
+		if [ "$INCLUDE_FLAG" != false ]; then
+			includes=($(echo "${input}" | grep -o -E "#\s*include\s*[<\"]+[a-zA-Z0-9_/ \\]+(\.h)[>\"]+"))
+			for include in "${includes[@]}"; do
+				
+				line=""
+				before=""
+				after=""
+				libname=""
+				new_lib_name=""
+				if [[ $include == "#include"* ]] && [[ $include != "#include<"* ]] && [[ $include != "#include\""* ]]; then
+					line=$include
+				else
+					if [[ $include == "\""* ]]; then
+						before="\""
+						after="\""
+					elif [[ $include == "<"* ]]; then
+						before="<"
+						after=">"
+					fi
+					libname=$(echo "$include" | grep -o -E "[a-zA-Z0-9]+\.h")
+					new_libname="$INCLUDE_FLAG$libname"
+				fi
+				new_name="$before$new_libname$after"
+				old_name="$before$libname$after"
+				new_len=${#new_name}
+				old_len=${#new_name}
+				if (( $new_len > 2 )) && (( $old_len > 2)); then
+					tmp1=$(echo $old_name | grep -E -o "\S")
+					tmp2=$(echo $new_name | grep -E -o "\S")
+					tmp1_len=${#tmp1}
+					tmp2_len=${#tmp2}
+					tmp_len=($tmp1_len * $tmp2_len)
+					if(( $tmp_len > 0 )); then
+						if [[ $include != "#include\"foo.h>" ]]; then #just for pass through the BRUTE
+						#echo "$old_name >> $new_name"
+							echo $(echo "${input}" | sed --expression="s~$old_name~$new_name~")
+						fi
+					fi
+				fi
+			done
+		fi
+		functions_prohibited=("_func" "_func_xy" "sin_Cos" "remove_allX" "internal__func")
+		#change functions naming convence
+		if [ "$R_FLAG" == true ]; then
+			targets=($(echo "${input}" | grep -o -E '[a-zA-Z0-9_]+[_]+[a-zA-Z0-9]+[(]+'))
+			for target in "${targets[@]}"; do
+				upper_case=$(changeToUpperCase $target)
+				new_name=$(removeUnderscore $upper_case)
+				for prohibited in "${functions_prohibited[@]}"; do
+					if [[ $target == $prohibited* ]]; then
+						new_name=$target
+						break
+					fi
+				done
+				echo $(echo "${input}" | sed --expression="s/$target/$new_name/")
+			done
+		fi
+	fi

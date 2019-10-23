@@ -126,9 +126,11 @@
     <None Include="assignment.oxps" />
     <None Include="assignment.pdf" />
     <None Include="script.sh" />
+    <None Include="utils.sh" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="man.txt" />
+    <Text Include="prohibited.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

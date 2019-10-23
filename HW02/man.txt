@@ -1,1 +1,44 @@
-Some text
+\033[2J
+\033[H
+\033[0;107m\033[1;30m HOMEWORK nr.2 - HELP PAGE\033[K
+\033[0m\033[2B
+\033[1;97m\033[1CDESCRIPTION
+\033[0m\033[1B
+\033[2CThis changes some things in source files.
+\033[0m\033[2B
+\033[1;97m\033[1CPARAMETERS
+\033[0m\033[1B
+\033[2C Script has next paramateres chaning its behaviour:
+\033[1B
+\033[2C \033[0;93m-h\033[0m, \033[0;93m-i\033[0m \033[0;36mprefix\033[0m and \033[0;93m-r\033[0m.
+\033[1B
+\033[3C\033[0;93m-h\033[0m: Displays this help page
+\033[1B
+\033[3C\033[0;93m-i\033[0m \033[0;36mprefix\033[0m: Adds \033[0;36mprefix\033[0m to every #include directive in files
+\033[1B
+\033[2C\033[2C\033[2CExample: \033[0;93m-i \033[0;36msome\033[0m changes #include "lib.h" to #include "\033[0;36msome\033[0mlib.h"
+\033[1B
+\033[0m\033[2B
+\033[1;97m\033[1CUSAGE
+\033[1B
+\033[0m\033[2CScript expects entries in format:
+\033[1B
+\033[3C\033[0;93mPATH \033[0;36mpath\033[0m
+\033[1B
+\033[2CWhere \033[0;36mpath\033[0m is relative or absolute path to some existing item in file system.
+\033[0m\033[2B
+\033[1;97m\033[1COUTPUT\033[0m
+\033[1B
+\033[2CScript shows some information about entry depending on its type:
+\033[1B
+\033[2C - for \033[4mFILE\033[0m shows path to file, count of lines and prints first line of file
+\033[1B
+\033[2C - for \033[4mDIRECTORY\033[0m shows path to directory
+\033[1B
+\033[2C - for \033[4mLINK\033[0m shows path to link and target of link
+\033[1B
+\033[2COtherwise prints ERROR to stderr.
+\033[0m\033[2B
+\033[1;97m\033[1CAUTHOR\033[0m
+\033[1B
+\033[2C(c) Jiri Skoda <skodaji4@fel.cvut.cz> 2019
